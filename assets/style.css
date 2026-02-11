@@ -199,12 +199,53 @@ textarea {
     transition: all 0.3s ease;
 }
 
+/* Fix for select options text color on Windows */
+select option {
+    background-color: #202124;
+    /* Dark background */
+    color: #ffffff;
+    /* White text */
+}
+
 input:focus,
 select:focus,
 textarea:focus {
     outline: none;
     border-color: var(--accent-color);
     background: rgba(255, 255, 255, 0.1);
+}
+
+/* API Params Row Layout */
+.param-row {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.param-row input {
+    margin: 0;
+    /* Override default margin */
+    flex: 1;
+}
+
+.param-row .remove-btn {
+    width: 40px;
+    padding: 0;
+    height: 48px;
+    /* Match input height roughly */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 59, 48, 0.2);
+    color: #ff3b30;
+    font-size: 1.5rem;
+    line-height: 1;
+}
+
+.param-row .remove-btn:hover {
+    background: rgba(255, 59, 48, 0.4);
+    transform: none;
 }
 
 button {
@@ -229,6 +270,11 @@ label {
     margin-bottom: 8px;
     color: var(--text-secondary);
     font-weight: 500;
+}
+
+/* SMTP Form Layout Fixes */
+.form-group {
+    margin-bottom: 20px;
 }
 
 pre {
