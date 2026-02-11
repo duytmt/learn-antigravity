@@ -225,8 +225,11 @@ textarea:focus {
 
 .param-row input {
     margin: 0;
-    /* Override default margin */
+    width: auto;
+    /* Reset width */
     flex: 1;
+    min-width: 0;
+    /* Prevent overflow */
 }
 
 .param-row .remove-btn {
