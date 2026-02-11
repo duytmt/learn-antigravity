@@ -278,16 +278,50 @@ label {
 /* SMTP Form Layout Fixes */
 .form-group {
     margin-bottom: 20px;
+    display: flex;
+    /* Horizontal layout */
+    align-items: center;
+    /* Vertically center */
+    gap: 16px;
+    /* Space between label and input */
 }
 
-pre {
-    background: rgba(0, 0, 0, 0.3);
-    padding: 16px;
-    border-radius: 8px;
-    overflow-x: auto;
-    color: #a8c7fa;
-    text-align: left;
+.form-group label {
+    margin-bottom: 0;
+    /* Remove bottom margin in flex mode */
+    width: 30%;
+    /* Fixed width for labels */
+    min-width: 140px;
+    /* Minimum width to prevent wrapping too soon */
+    text-align: right;
+    /* Align text to the right closer to input */
+    flex-shrink: 0;
+    /* Prevent label from shrinking */
 }
+
+.form-group input,
+.form-group select {
+    margin-bottom: 0 !important;
+    /* Override global input margin */
+    flex: 1;
+    /* Input takes remaining space */
+}
+
+/* Mobile responsiveness for forms */
+@media (max-width: 600px) {
+    .form-group {
+        flex-direction: column;
+        /* Stack on mobile */
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .form-group label {
+        width: 100%;
+        text-align: left;
+    }
+}
+
 
 /* Staggered animation */
 .tool-card:nth-child(2) {
