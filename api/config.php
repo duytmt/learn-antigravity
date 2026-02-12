@@ -5,11 +5,11 @@ return [
     // Danh sách các domain được phép gọi (Whitelist)
     // Để ngăn chặn SSRF, chỉ cho phép các domain tin cậy
     'allowed_domains' => [
-        'jsonplaceholder.typicode.com',
-        'reqres.in',
-        'api.github.com',
-        'dummyjson.com',
-        'google.com' // Ví dụ tin cậy
+        'google.com',
+        'inet.vn',
+        'whois.inet.vn',
+        'n8n.ipi.vn',
+        
     ],
 
     // API Keys (Hidden from client)
