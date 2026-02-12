@@ -61,8 +61,11 @@
                 <option value="DELETE">DELETE</option>
             </select>
 
-            <label>URL</label>
-            <input type="text" id="url" placeholder="https://example.com/api">
+            <label>URL (Chỉ hỗ trợ các domain trong Whitelist)</label>
+            <div style="margin-bottom: 10px; font-size: 0.85rem; color: #aaa;">
+                Supported: jsonplaceholder.typicode.com, reqres.in, api.github.com, dummyjson.com, google.com
+            </div>
+            <input type="text" id="url" placeholder="https://jsonplaceholder.typicode.com/posts/1">
 
             <h3>Query Parameters (Key / Value)</h3>
 

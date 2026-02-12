@@ -73,9 +73,17 @@ async function sendRequest() {
 
     // Gắn query vào URL
     let query = new URLSearchParams(params).toString();
-    if (query) url += "?" + query;
+    if (query) url += (url.includes('?') ? '&' : '?') + query;
 
-    let options = { method };
+    let payload = {
+        url: url,
+        method: method,
+        headers: {
+            // Có thể thêm header tùy chỉnh ở đây nếu UI hỗ trợ
+            "Content-Type": "application/json"
+        },
+        body: null
+    };
 
     // Body cho POST & PUT & DELETE
     if (method === "POST" || method === "PUT" || method === "DELETE") {
@@ -83,8 +91,7 @@ async function sendRequest() {
 
         if (bodyText) {
             try {
-                options.body = JSON.stringify(JSON.parse(bodyText));
-                options.headers = { "Content-Type": "application/json" };
+                payload.body = JSON.parse(bodyText);
             } catch (err) {
                 alert("Body JSON không hợp lệ!");
                 return;
@@ -93,20 +100,37 @@ async function sendRequest() {
     }
 
 
-    document.getElementById("resultBox").textContent = "Đang gửi request...";
+    document.getElementById("resultBox").textContent = "Đang gửi request qua Proxy...";
 
     try {
-        let res = await fetch(url, options);
-        let text = await res.text();
+        // Gọi đến Proxy Backend thay vì trực tiếp
+        let res = await fetch('proxy.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        });
 
-        // cố parse JSON nếu được
+        let text = await res.text();
+        let status = res.status;
+
+        // Cố parse JSON nếu được để hiển thị đẹp
         try {
-            text = JSON.stringify(JSON.parse(text), null, 2);
+            let json = JSON.parse(text);
+            text = JSON.stringify(json, null, 2);
         } catch {}
 
-        document.getElementById("resultBox").textContent = text;
+        if (status >= 400) {
+            document.getElementById("resultBox").innerHTML = `Error ${status}:\n${text}`;
+            document.getElementById("resultBox").style.color = 'red';
+        } else {
+            document.getElementById("resultBox").textContent = text;
+            document.getElementById("resultBox").style.color = 'var(--text-color)';
+        }
 
     } catch (error) {
-        document.getElementById("resultBox").textContent = "Lỗi: " + error;
+        document.getElementById("resultBox").textContent = "Lỗi kết nối tới Proxy: " + error;
+        document.getElementById("resultBox").style.color = 'red';
     }
 }
